@@ -1,11 +1,16 @@
 package main
 
 import (
+  "encoding/json"
 	"fmt"
-
-	"github.com/vogtn/stringutil"
+  "net/http"
 )
 
-func main() {
-	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
+func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome, %s!", r.URL.Path[1:])
+}
+
+func main(){
+  http.HandleFunc("/", handler);
+  http.ListenAndServe(":8080", nil);
 }
